@@ -1,0 +1,98 @@
+<div class="detail-page" *ngIf="product">
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a routerLink="/home">Home</a> /
+    <a routerLink="/products">Products</a> /
+    <span>{{ product.name }}</span>
+  </div>
+
+  <div class="detail-wrapper">
+
+    <!-- Left: Image Gallery -->
+    <div class="image-section">
+      <div class="main-image">
+        <img [src]="selectedImage" [alt]="product.name">
+        <span class="discount-badge" *ngIf="product.originalPrice > product.price">
+          -{{ getDiscount(product.originalPrice, product.price) }}%
+        </span>
+      </div>
+
+      <div class="thumbnail-row" *ngIf="product.gallery">
+        <img
+          *ngFor="let img of product.gallery"
+          [src]="img"
+          [class.active]="selectedImage === img"
+          (click)="selectImage(img)"
+          class="thumb"
+        />
+      </div>
+    </div>
+
+    <!-- Right: Product Info -->
+    <div class="info-section">
+
+      <span class="category-tag">{{ product.category }}</span>
+      <h1 class="product-title">{{ product.name }}</h1>
+
+      <div class="rating-row">
+        <span class="stars">{{ getStars(product.rating) }}</span>
+        <span class="rating-value">{{ product.rating }}</span>
+        <span class="reviews">({{ product.reviews }} reviews)</span>
+      </div>
+
+      <div class="price-section">
+        <span class="current-price">KSh {{ product.price | number }}</span>
+        <span class="original-price" *ngIf="product.originalPrice > product.price">
+          KSh {{ product.originalPrice | number }}
+        </span>
+      </div>
+
+      <p class="description">{{ product.description }}</p>
+
+      <!-- Trust Badges -->
+      <div class="trust-badges">
+        <span>🚚 Free Delivery</span>
+        <span>↩️ Easy Returns</span>
+        <span>✅ In Stock</span>
+      </div>
+
+      <!-- Quantity Selector -->
+      <div class="quantity-section">
+        <label>Quantity</label>
+        <div class="qty-controls">
+          <button (click)="decreaseQty()">−</button>
+          <span>{{ quantity }}</span>
+          <button (click)="increaseQty()">+</button>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button class="btn-add-cart">🛒 Add to Cart</button>
+        <button class="btn-buy-now">⚡ Buy Now</button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Related Products -->
+  <div class="related-section" *ngIf="relatedProducts.length > 0">
+    <h2>You May Also Like</h2>
+    <div class="related-grid">
+      <div class="related-card" *ngFor="let item of relatedProducts" [routerLink]="['/product', item.id]">
+        <img [src]="item.image" [alt]="item.name">
+        <h4>{{ item.name }}</h4>
+        <p class="related-price">KSh {{ item.price | number }}</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Not Found -->
+<div class="not-found" *ngIf="!product">
+  <p>😕 Product not found.</p>
+  <a routerLink="/products" class="back-link">← Back to Products</a>
+</div>

@@ -1,0 +1,29 @@
+<section class="newsletter">
+
+  <div class="newsletter-content">
+    <span class="newsletter-icon">📩</span>
+    <h2>Stay <span class="highlight">Updated</span></h2>
+    <p>Subscribe to get the latest offers, new arrivals, and exclusive discounts straight to your inbox.</p>
+
+    <form class="newsletter-form" [formGroup]="newsletterForm" (ngSubmit)="onSubmit()">
+      <input
+        type="email"
+        formControlName="email"
+        placeholder="Enter your email address"
+        [class.invalid]="newsletterForm.get('email')?.invalid && newsletterForm.get('email')?.touched"
+      />
+      <button type="submit" [disabled]="newsletterForm.invalid">
+        Subscribe ✨
+      </button>
+    </form>
+
+    <span class="error" *ngIf="newsletterForm.get('email')?.invalid && newsletterForm.get('email')?.touched">
+      ⚠️ Please enter a valid email address
+    </span>
+
+    <p class="success-msg" *ngIf="submitted">
+      🎉 Thank you for subscribing! Check your inbox for confirmation.
+    </p>
+  </div>
+
+</section>

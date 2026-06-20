@@ -1,0 +1,155 @@
+<div class="products-page">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <h1>Our <span class="highlight">Products</span></h1>
+    <p>Discover amazing deals on premium products</p>
+  </div>
+
+  <!-- Search & Sort Bar -->
+  <div class="toolbar">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input
+        type="text"
+        placeholder="Search products..."
+        [(ngModel)]="searchQuery"
+      />
+    </div>
+
+    <select [(ngModel)]="sortBy" class="sort-select">
+      <option value="newest">Newest</option>
+      <option value="price-low">Price: Low → High</option>
+      <option value="price-high">Price: High → Low</option>
+      <option value="rating">Top Rated</option>
+    </select>
+  </div>
+
+  <!-- Category Filters -->
+  <div class="categories">
+    <button
+      *ngFor="let cat of categories"
+      [class.active]="selectedCategory === cat"
+      (click)="setCategory(cat)"
+      class="cat-btn">
+      {{ cat }}
+    </button>
+  </div>
+
+  <!-- Filter Panel -->
+  <div class="filter-panel">
+
+    <div class="filter-group">
+      <h4>💰 Price Range</h4>
+      <div class="price-inputs">
+        <input
+          type="number"
+          placeholder="Min price"
+          [(ngModel)]="minPrice"
+          class="price-input"
+        />
+        <span>—</span>
+        <input
+          type="number"
+          placeholder="Max price"
+          [(ngModel)]="maxPrice"
+          class="price-input"
+        />
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <h4>⭐ Minimum Rating</h4>
+      <div class="rating-filters">
+        <button
+          *ngFor="let r of [1,2,3,4,5]"
+          [class.active]="minRating === r"
+          (click)="minRating = r"
+          class="rating-btn">
+          {{ r }}★
+        </button>
+      </div>
+    </div>
+
+    <button class="reset-btn" (click)="resetFilters()">
+      🔄 Reset Filters
+    </button>
+
+  </div>
+
+  <!-- Discount Banner -->
+  <div class="discount-banner">
+    <span>🎉 Special Offer! Use code <strong>MYSHOP20</strong> for 20% off on all orders above $100!</span>
+  </div>
+
+  <!-- Products Grid -->
+  <div class="products-grid">
+    <div class="product-card" *ngFor="let product of paginatedProducts">
+
+      <!-- Badge -->
+      <div class="badge">{{ product.badge }}</div>
+
+      <!-- Discount % -->
+      <div class="discount-tag">-{{ getDiscount(product.originalPrice, product.price) }}%</div>
+
+      <!-- Product Image -->
+<div class="product-image">
+  <img [src]="product.image" [alt]="product.name" onerror="this.src='images/placeholder.jpg'">
+</div>
+
+<!-- Thumbnail Gallery (only shows if product has multiple designs) -->
+<div class="thumbnail-row" *ngIf="product.gallery">
+  <img
+    *ngFor="let thumb of product.gallery"
+    [src]="thumb"
+    [class.active]="product.image === thumb"
+    (click)="selectImage(product, thumb)"
+    class="thumbnail"
+  />
+</div>
+
+      <!-- Product Info -->
+      <div class="product-info">
+        <span class="category-tag">{{ product.category }}</span>
+        <h3 class="product-name">{{ product.name }}</h3>
+        <p class="product-desc">{{ product.description }}</p>
+
+        <!-- Rating -->
+        <div class="rating">
+          <span class="stars">{{ getStars(product.rating) }}</span>
+          <span class="reviews">({{ product.reviews }} reviews)</span>
+        </div>
+
+        <!-- Price -->
+        <div class="price-row">
+          <span class="current-price">KSh {{ product.price | number }}</span>
+          <span class="original-price">KSh {{ product.originalPrice | number }}</span>
+        </div>
+
+        <!-- Buttons -->
+        <div class="card-buttons">
+          <button class="btn-cart">🛒 Add to Cart</button>
+         <button class="btn-details" [routerLink]="['/product', product.id]">👁️ Details</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- No Results -->
+  <div class="no-results" *ngIf="filteredProducts.length === 0">
+    <p>😕 No products found. Try a different search or category.</p>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination" *ngIf="totalPages > 1">
+    <button
+      *ngFor="let page of [].constructor(totalPages); let i = index"
+      [class.active]="currentPage === i + 1"
+      (click)="setPage(i + 1)"
+      class="page-btn">
+      {{ i + 1 }}
+    </button>
+  </div>
+
+</div>

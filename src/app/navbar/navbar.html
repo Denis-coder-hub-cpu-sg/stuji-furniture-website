@@ -1,0 +1,47 @@
+<nav class="navbar">
+
+  <!-- Logo -->
+  <a routerLink="/home" class="logo">
+    <span class="logo-icon">🛍️</span>
+    <span class="logo-text">MyShop</span>
+  </a>
+
+  <div class="divider"></div>
+
+  <!-- Nav Links -->
+  <ul class="nav-links">
+    <li><a routerLink="/home" routerLinkActive="active">🏠 Home</a></li>
+    <li><a routerLink="/products" routerLinkActive="active">🛍️ Products</a></li>
+    <li><a href="#">ℹ️ About</a></li>
+    <li><a href="#">📞 Contact</a></li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <!-- Actions -->
+  <div class="nav-actions">
+    <button class="icon-btn" title="Search">🔍</button>
+    <button class="icon-btn cart-btn" title="Cart">
+      🛒
+      <span class="cart-badge">3</span>
+    </button>
+    <a routerLink="/login" class="login-btn">👤 Login</a>
+  </div>
+
+  <!-- Hamburger -->
+  <button class="hamburger" (click)="toggleMenu()" title="Menu">
+    <span [class.open]="menuOpen"></span>
+    <span [class.open]="menuOpen"></span>
+    <span [class.open]="menuOpen"></span>
+  </button>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" [class.open]="menuOpen">
+    <a routerLink="/home" (click)="closeMenu()">🏠 Home</a>
+    <a routerLink="/products" (click)="closeMenu()">🛍️ Products</a>
+    <a href="#" (click)="closeMenu()">ℹ️ About</a>
+    <a href="#" (click)="closeMenu()">📞 Contact</a>
+    <a routerLink="/login" (click)="closeMenu()">👤 Login</a>
+  </div>
+
+</nav>

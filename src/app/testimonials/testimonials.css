@@ -1,0 +1,208 @@
+/* Step 6: Layout */
+.testimonials {
+  padding: 5rem 5%;
+  background: #f5f5f5;
+  text-align: center;
+}
+
+/* Section Header */
+.section-header {
+  margin-bottom: 3rem;
+}
+
+.section-badge {
+  display: inline-block;
+  background: rgba(108, 99, 255, 0.1);
+  color: #6C63FF;
+  padding: 0.4rem 1rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(108, 99, 255, 0.2);
+}
+
+.section-header h2 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #1A1A2E;
+  margin-bottom: 0.5rem;
+}
+
+.highlight {
+  background: linear-gradient(90deg, #FF6B35, #6C63FF);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.section-header p {
+  color: #888;
+  font-size: 1rem;
+}
+
+/* Step 2 & 7: Grid Layout */
+.testimonials-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+/* Step 8: Card with Animation */
+.testimonial-card {
+  background: #FFFFFF;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+  text-align: left;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  animation: fadeInUp 0.6s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Step 8: Hover Effect */
+.testimonial-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* Featured Card */
+.testimonial-card.featured {
+  background: linear-gradient(135deg, #1A1A2E, #2d2d4d);
+  color: #FFFFFF;
+  border: none;
+}
+
+.testimonial-card.featured .review {
+  color: #ccc;
+}
+
+.testimonial-card.featured .customer-name {
+  color: #FFFFFF;
+}
+
+.testimonial-card.featured .customer-location {
+  color: #888;
+}
+
+/* Quote Icon */
+.quote-icon {
+  font-size: 3rem;
+  color: #FF6B35;
+  line-height: 1;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.featured .quote-icon {
+  color: #00D4AA;
+}
+
+/* Step 3: Short Review */
+.review {
+  font-style: italic;
+  color: #555;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+/* Step 6: Stars */
+.stars {
+  font-size: 1rem;
+  margin-bottom: 1.2rem;
+  letter-spacing: 2px;
+}
+
+/* Step 4 & 5: Customer Info */
+.customer {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.customer-avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FF6B35, #6C63FF);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.customer-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.customer-name {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #1A1A2E;
+}
+
+.customer-location {
+  font-size: 0.8rem;
+  color: #999;
+}
+
+/* Stats Section */
+.testimonials-stats {
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  padding: 2rem;
+  background: #FFFFFF;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+  flex-wrap: wrap;
+}
+
+.tstat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tstat-number {
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #FF6B35, #6C63FF);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.tstat-label {
+  font-size: 0.85rem;
+  color: #888;
+  margin-top: 0.2rem;
+}
+
+/* Step 9: Responsive */
+@media (max-width: 768px) {
+  .testimonials-container {
+    grid-template-columns: 1fr;
+  }
+
+  .section-header h2 {
+    font-size: 1.8rem;
+  }
+
+  .testimonials-stats {
+    gap: 2rem;
+  }
+}
