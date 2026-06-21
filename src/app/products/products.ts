@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, ActivatedRoute } from '@angular/router';
@@ -9,7 +9,8 @@ import { ProductService, Product } from '../product';
   standalone: true,
   imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './products.html',
-  styleUrl: './products.css'
+  styleUrl: './products.css',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ProductsComponent implements OnInit {
 

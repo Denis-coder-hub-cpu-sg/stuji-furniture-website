@@ -141,7 +141,7 @@
     <p>😕 No products found. Try a different search or category.</p>
   </div>
 
-  <!-- Pagination -->
+ <!-- Pagination -->
   <div class="pagination" *ngIf="totalPages > 1">
     <button
       *ngFor="let page of [].constructor(totalPages); let i = index"
@@ -152,4 +152,7 @@
     </button>
   </div>
 
+  <recently-viewed></recently-viewed>
+
 </div>
+

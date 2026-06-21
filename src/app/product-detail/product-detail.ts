@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute } from '@angular/router';
 import { ProductService, Product } from '../product';
@@ -8,7 +8,8 @@ import { ProductService, Product } from '../product';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './product-detail.html',
-  styleUrl: './product-detail.css'
+  styleUrl: './product-detail.css',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ProductDetailComponent implements OnInit {
 
@@ -30,8 +31,30 @@ export class ProductDetailComponent implements OnInit {
       if (this.product) {
         this.selectedImage = this.product.image;
         this.relatedProducts = this.productService.getRelatedProducts(this.product.category, this.product.id);
+        this.trackRecentlyViewed();
       }
     });
+  }
+
+  trackRecentlyViewed() {
+    if (!this.product || typeof window === 'undefined') return;
+
+    const stored = localStorage.getItem('recentlyViewed');
+    let viewed = stored ? JSON.parse(stored) : [];
+
+    viewed = viewed.filter((p: any) => p.id !== this.product!.id);
+
+    viewed.unshift({
+      id: this.product.id,
+      name: this.product.name,
+      price: this.product.price,
+      image: this.product.image
+    });
+
+    viewed = viewed.slice(0, 6);
+
+    localStorage.setItem('recentlyViewed', JSON.stringify(viewed));
+    window.dispatchEvent(new Event('recentlyViewedUpdated'));
   }
 
   selectImage(img: string) {
