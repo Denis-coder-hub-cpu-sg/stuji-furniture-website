@@ -2,6 +2,7 @@ import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute } from '@angular/router';
 import { ProductService, Product } from '../product';
+import { CartService } from '../cart';
 
 @Component({
   selector: 'app-product-detail',
@@ -17,11 +18,11 @@ export class ProductDetailComponent implements OnInit {
   relatedProducts: Product[] = [];
   quantity = 1;
   selectedImage = '';
-
-  constructor(
-    private route: ActivatedRoute,
-    private productService: ProductService
-  ) {}
+constructor(
+  private route: ActivatedRoute,
+  private productService: ProductService,
+  private cartService: CartService
+) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -77,5 +78,12 @@ export class ProductDetailComponent implements OnInit {
 
   getDiscount(original: number, current: number): number {
     return Math.round(((original - current) / original) * 100);
+  }
+
+  addToCart() {
+    if (this.product) {
+      this.cartService.addToCart(this.product, this.quantity);
+      alert(`${this.product.name} added to cart!`);
+    }
   }
 }

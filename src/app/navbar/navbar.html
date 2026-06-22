@@ -3,7 +3,7 @@
   <!-- Logo -->
   <a routerLink="/home" class="logo">
     <span class="logo-icon">🛍️</span>
-    <span class="logo-text">MyShop</span>
+    <span class="logo-text">TrevorFurniture</span>
   </a>
 
   <div class="divider"></div>
@@ -21,10 +21,10 @@
   <!-- Actions -->
   <div class="nav-actions">
     <button class="icon-btn" title="Search">🔍</button>
-    <button class="icon-btn cart-btn" title="Cart">
-      🛒
-      <span class="cart-badge">3</span>
-    </button>
+    <button class="icon-btn cart-btn" title="Cart" routerLink="/cart">
+  🛒
+  <span class="cart-badge" *ngIf="getCartCount() > 0">{{ getCartCount() }}</span>
+</button>
     <a routerLink="/login" class="login-btn">👤 Login</a>
   </div>
 

@@ -1,0 +1,84 @@
+<div class="cart-page">
+
+  <!-- Page Header -->
+  <div class="cart-header">
+    <h1>🛒 Your Cart <span class="item-count">({{ getTotalItems() }} items)</span></h1>
+    <a routerLink="/products" class="continue-shopping">← Continue Shopping</a>
+  </div>
+
+  <!-- Empty Cart -->
+  <div class="empty-cart" *ngIf="items.length === 0">
+    <p>😕 Your cart is empty.</p>
+    <a routerLink="/products" class="btn-shop">Start Shopping</a>
+  </div>
+
+  <!-- Cart Items -->
+  <div class="cart-content" *ngIf="items.length > 0">
+
+    <div class="cart-items">
+      <div class="cart-item" *ngFor="let item of items">
+
+        <!-- Product Image -->
+        <div class="item-image">
+          <img [src]="item.product.image" [alt]="item.product.name">
+        </div>
+
+        <!-- Product Info -->
+        <div class="item-info">
+          <h3>{{ item.product.name }}</h3>
+          <span class="item-category">{{ item.product.category }}</span>
+          <p class="item-price">KSh {{ item.product.price | number }}</p>
+        </div>
+
+        <!-- Quantity Controls -->
+        <div class="item-qty">
+          <button (click)="decreaseQty(item.product.id)">−</button>
+          <span>{{ item.quantity }}</span>
+          <button (click)="increaseQty(item.product.id)">+</button>
+        </div>
+
+        <!-- Item Total -->
+        <div class="item-total">
+          <p>KSh {{ (item.product.price * item.quantity) | number }}</p>
+        </div>
+
+        <!-- Remove Button -->
+        <button class="remove-btn" (click)="removeItem(item.product.id)">🗑️</button>
+
+      </div>
+    </div>
+
+    <!-- Order Summary -->
+    <div class="order-summary">
+      <h2>Order Summary</h2>
+
+      <div class="summary-row">
+        <span>Subtotal ({{ getTotalItems() }} items)</span>
+        <span>KSh {{ getTotalPrice() | number }}</span>
+      </div>
+
+      <div class="summary-row">
+        <span>Delivery</span>
+        <span class="free">FREE</span>
+      </div>
+
+      <div class="summary-divider"></div>
+
+      <div class="summary-row total">
+        <span>Total</span>
+        <span>KSh {{ getTotalPrice() | number }}</span>
+      </div>
+
+      <button class="btn-checkout" routerLink="/checkout">
+        Proceed to Checkout ⚡
+      </button>
+
+      <button class="btn-clear" (click)="clearCart()">
+        🗑️ Clear Cart
+      </button>
+
+    </div>
+
+  </div>
+
+</div>

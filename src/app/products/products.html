@@ -128,7 +128,7 @@
 
         <!-- Buttons -->
         <div class="card-buttons">
-          <button class="btn-cart">🛒 Add to Cart</button>
+          <button class="btn-cart" (click)="addToCart(product)">🛒 Add to Cart</button>
          <button class="btn-details" [routerLink]="['/product', product.id]">👁️ Details</button>
         </div>
       </div>

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, ActivatedRoute } from '@angular/router';
 import { ProductService, Product } from '../product';
-
+import { CartService } from '../cart';
 @Component({
   selector: 'app-products',
   standalone: true,
@@ -27,8 +27,11 @@ export class ProductsComponent implements OnInit {
 
   products: Product[] = [];
 
-  constructor(private route: ActivatedRoute, private productService: ProductService) {}
-
+ constructor(
+  private route: ActivatedRoute,
+  private productService: ProductService,
+  private cartService: CartService
+) {}
   ngOnInit() {
     this.products = this.productService.getAllProducts();
 
@@ -106,6 +109,10 @@ export class ProductsComponent implements OnInit {
     this.minRating = 0;
     this.currentPage = 1;
   }
+  addToCart(product: Product) {
+  this.cartService.addToCart(product, 1);
+  alert(`${product.name} added to cart!`);
+}
 
   selectImage(product: Product, img: string) {
     product.image = img;
