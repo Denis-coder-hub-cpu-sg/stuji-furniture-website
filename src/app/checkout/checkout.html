@@ -1,0 +1,153 @@
+<!-- Order Confirmation -->
+<div class="confirmation" *ngIf="orderPlaced">
+  <div class="confirmation-box">
+    <div class="success-icon">✅</div>
+    <h2>Order Placed Successfully!</h2>
+    <p>Thank you for shopping with <strong>STUJI</strong>!</p>
+    <div class="order-id">
+      <span>Order ID:</span>
+      <strong>{{ orderId }}</strong>
+    </div>
+    <p class="delivery-note">🚚 Your order will be delivered within 2-3 business days.</p>
+    <button class="btn-home" (click)="goHome()">🏠 Back to Home</button>
+  </div>
+</div>
+
+<!-- Checkout Page -->
+<div class="checkout-page" *ngIf="!orderPlaced">
+
+  <div class="checkout-header">
+    <h1>Checkout</h1>
+    <a routerLink="/cart" class="back-link">← Back to Cart</a>
+  </div>
+
+  <div class="checkout-content">
+
+    <!-- Left: Customer Details Form -->
+    <div class="form-section">
+      <h2>📋 Customer Details</h2>
+
+      <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+
+        <!-- Name -->
+        <div class="form-group">
+          <label>Full Name</label>
+          <input
+            type="text"
+            formControlName="name"
+            placeholder="e.g. John Kamau"
+            [class.invalid]="checkoutForm.get('name')?.invalid && checkoutForm.get('name')?.touched"
+          />
+          <span class="error" *ngIf="checkoutForm.get('name')?.hasError('required') && checkoutForm.get('name')?.touched">
+            ⚠️ Full name is required
+          </span>
+          <span class="error" *ngIf="checkoutForm.get('name')?.hasError('minlength') && checkoutForm.get('name')?.touched">
+            ⚠️ Name must be at least 3 characters
+          </span>
+        </div>
+
+        <!-- Phone -->
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input
+            type="tel"
+            formControlName="phone"
+            placeholder="e.g. 0712 345 678"
+            [class.invalid]="checkoutForm.get('phone')?.invalid && checkoutForm.get('phone')?.touched"
+          />
+          <span class="error" *ngIf="checkoutForm.get('phone')?.hasError('required') && checkoutForm.get('phone')?.touched">
+            ⚠️ Phone number is required
+          </span>
+          <span class="error" *ngIf="checkoutForm.get('phone')?.hasError('pattern') && checkoutForm.get('phone')?.touched">
+            ⚠️ Please enter a valid phone number
+          </span>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label>Email Address</label>
+          <input
+            type="email"
+            formControlName="email"
+            placeholder="e.g. john@example.com"
+            [class.invalid]="checkoutForm.get('email')?.invalid && checkoutForm.get('email')?.touched"
+          />
+          <span class="error" *ngIf="checkoutForm.get('email')?.hasError('required') && checkoutForm.get('email')?.touched">
+            ⚠️ Email is required
+          </span>
+          <span class="error" *ngIf="checkoutForm.get('email')?.hasError('email') && checkoutForm.get('email')?.touched">
+            ⚠️ Please enter a valid email
+          </span>
+        </div>
+
+        <!-- Delivery Address -->
+        <div class="form-group">
+          <label>Delivery Address</label>
+          <textarea
+            formControlName="address"
+            placeholder="e.g. 123 Moi Avenue, Nairobi CBD, Kenya"
+            rows="4"
+            [class.invalid]="checkoutForm.get('address')?.invalid && checkoutForm.get('address')?.touched"
+          ></textarea>
+          <span class="error" *ngIf="checkoutForm.get('address')?.hasError('required') && checkoutForm.get('address')?.touched">
+            ⚠️ Delivery address is required
+          </span>
+          <span class="error" *ngIf="checkoutForm.get('address')?.hasError('minlength') && checkoutForm.get('address')?.touched">
+            ⚠️ Please enter a complete address (at least 10 characters)
+          </span>
+        </div>
+
+        <!-- Place Order Button -->
+        <button
+          type="submit"
+          class="btn-place-order"
+          [disabled]="checkoutForm.invalid || isLoading"
+        >
+          <span *ngIf="!isLoading">⚡ Place Order</span>
+          <span *ngIf="isLoading" class="spinner"></span>
+        </button>
+
+      </form>
+    </div>
+
+    <!-- Right: Order Summary -->
+    <div class="summary-section">
+      <h2>🧾 Order Summary</h2>
+
+      <!-- Cart Items -->
+      <div class="summary-items">
+        <div class="summary-item" *ngFor="let item of cartItems">
+          <img [src]="item.product.image" [alt]="item.product.name" class="summary-img">
+          <div class="summary-info">
+            <p class="summary-name">{{ item.product.name }}</p>
+            <p class="summary-qty">Qty: {{ item.quantity }}</p>
+          </div>
+          <p class="summary-price">KSh {{ (item.product.price * item.quantity) | number }}</p>
+        </div>
+      </div>
+
+      <div class="summary-divider"></div>
+
+      <!-- Totals -->
+      <div class="summary-row">
+        <span>Subtotal ({{ getTotalItems() }} items)</span>
+        <span>KSh {{ getSubtotal() | number }}</span>
+      </div>
+
+      <div class="summary-row">
+        <span>Delivery</span>
+        <span class="free">FREE 🎉</span>
+      </div>
+
+      <div class="summary-divider"></div>
+
+      <div class="summary-row total">
+        <span>Grand Total</span>
+        <span>KSh {{ getSubtotal() | number }}</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

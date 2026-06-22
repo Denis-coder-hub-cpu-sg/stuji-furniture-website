@@ -4,6 +4,7 @@ import { CartPage } from './cart-page/cart-page';
 import { ProductsComponent } from './products/products';
 import { HeroComponent } from './hero/hero';
 import { ProductDetailComponent } from './product-detail/product-detail';
+import { CheckoutComponent } from './checkout/checkout';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -12,4 +13,5 @@ export const routes: Routes = [
   { path: 'products', component: ProductsComponent },
   { path: 'product/:id', component: ProductDetailComponent },
   { path: 'cart', component: CartPage },
+  { path: 'checkout', component: CheckoutComponent },
 ];
