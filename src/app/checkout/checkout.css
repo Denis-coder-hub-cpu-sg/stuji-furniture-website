@@ -306,3 +306,12 @@
     order: -1;
   }
 }
+.error-msg {
+  background: rgba(255, 107, 53, 0.1);
+  border: 1px solid #FF6B35;
+  color: #FF6B35;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}

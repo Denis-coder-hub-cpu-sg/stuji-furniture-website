@@ -31,6 +31,30 @@ export class App {
         sessionStorage.setItem('hasVisited', 'true');
         this.cdr.detectChanges();
       }, delay);
+
+      this.initScrollAnimations();
     });
+  }
+
+  initScrollAnimations() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    const observe = () => {
+      document.querySelectorAll('.scroll-animate').forEach(el => {
+        observer.observe(el);
+      });
+    };
+
+    observe();
+
+    // Re-observe after route changes
+    const routeObserver = new MutationObserver(observe);
+    routeObserver.observe(document.body, { childList: true, subtree: true });
   }
 }

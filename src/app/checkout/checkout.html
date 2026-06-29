@@ -16,6 +16,7 @@
 <!-- Checkout Page -->
 <div class="checkout-page" *ngIf="!orderPlaced">
 
+<div class="checkout-content animate-fadeInUp">
   <div class="checkout-header">
     <h1>Checkout</h1>
     <a routerLink="/cart" class="back-link">← Back to Cart</a>
@@ -96,6 +97,9 @@
             ⚠️ Please enter a complete address (at least 10 characters)
           </span>
         </div>
+        <div class="error-msg" *ngIf="errorMessage">
+  ⚠️ {{ errorMessage }}
+</div>
 
         <!-- Place Order Button -->
         <button
