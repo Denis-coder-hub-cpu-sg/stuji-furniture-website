@@ -21,7 +21,7 @@ export class CheckoutComponent implements OnInit {
   isLoading = false;
   errorMessage = '';
 
-  private apiUrl = 'http://localhost:8000';
+  private apiUrl = 'https://stuji-backend.onrender.com';
 
   constructor(
     private fb: FormBuilder,
